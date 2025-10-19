@@ -34,14 +34,14 @@ create table ticket (
 
 insert into train values(101,'Rajdhani','06:00:00','14:00:00','Delhi','Mumbai',10,72),
                         (102,'Shatabdi','07:00:00','15:00:00','Delhi','Chennai',8,70),
-                        (103,'Duronto','08:00:00','16:30:00','Ahilyanagar','pune',12,80),
-                        (104,'Gatiman','09:00:00','17:45:00','Mumabi','Kolkatta',7,65),
+                        (103,'Duronto','08:00:00','16:30:00','Ahilyanagar','Pune',12,80),
+                        (104,'Gatiman','09:00:00','17:45:00','Mumbai','Pune',7,65),
                         (105,'Garib path','10:30:00','19:30:00','Pune','Goa',6,60),
                         (106,'Indian Express','12:30:00','22:00:00','Jammu','Hariyana',9,75),
                         (107,'Super Fast','13:00:00','23:15:00','Nagpur','Delhi',11,78),
                         (108,'Express','18:20:00','3:10:00','kashmir','Kanyakumari',10,72),
                         (109,'Intercity','09:00:00','11:00:00','shirur','Pune',5,55),
-                        (110,'Jehlum','20:00:00','17:00:00','Beed','Mumabi',12,70);
+                        (110,'Jehlum','20:00:00','17:00:00','Pune','Mumbai',12,70);
 
 insert into passenger values(1,'om','Ahilyanaggar',20,'M'),
                             (2,'Riya','Pune',21,'W'),
