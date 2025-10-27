@@ -44,8 +44,8 @@ INSERT INTO empolyee VALUES(11,'Abhay','Jadhav','2005-12-03','abhay123@gmail.com
 INSERT INTO salary VALUES  (101 , 11 , '2025-10-11' , '2025-10-21' , 50000.50) , (102 ,12 , '2025-09-10' , '2025-09-20' , 80000.75) , (103 , 13 , '2025-11-01','2025-11-11',90000.12);
 
 -- SELECT  * FROM departments;
-SELECT * from empolyee;
-SELECT * from salary;
+-- SELECT * from empolyee;
+-- SELECT * from salary;
 
 -- SELECT emp_id , first_name , lower(last_name) FROM empolyee;
 
@@ -74,12 +74,59 @@ SELECT * from salary;
 
 
 -- #DAYTIME OPERATION
-select CURDATE();
-SELECT CURTIME();
-SELECT DATE(NOW());
+-- select CURDATE();
+-- SELECT CURTIME();
+-- SELECT DATE(NOW());
 
-SELECT emp_id , DATEDIFF(CURDATE() , birth_date) as Total_age FROM empolyee;
-SELECT DAYNAME(birth_date) FROM empolyee;
+-- SELECT emp_id , DATEDIFF(CURDATE() , birth_date) as Total_age FROM empolyee;
+-- SELECT DAYNAME(birth_date) FROM empolyee;
 
- SELECT emp_id , DAYOFWEEK(birth_date) as weekday_index ,DAYNAME(birth_date) as weekday_name from empolyee;
-  SELECT emp_id , MONTH(birth_date) as birth_month , MONTHNAME(birth_date) as birth_month from empolyee;
+--  SELECT emp_id , DAYOFWEEK(birth_date) as weekday_index ,DAYNAME(birth_date) as weekday_name from empolyee;
+  -- SELECT emp_id , MONTH(birth_date) as birth_month , MONTHNAME(birth_date) as birth_month from empolyee;
+
+  -- SELECT emp_id , EXTRACT(YEAR FROM birth_date) as Birthday_date from empolyee;
+  -- SELECT TIMESTAMPDIFF(YEAR,'2005-01-25',CURDATE()) AS total_age;
+
+  -- String Operation
+
+  SELECT TRIM('   HELLO   ') AS T1;
+  SELECT TRIM(LEADING 'X' FROM 'XXXABCD') AS T2;
+  SELECT TRIM( TRAILING 'Z' FROM 'ABCDZZZ') AS T3;
+  SELECT TRIM(BOTH 'X' FROM 'XXABCDXX') AS T4;
+  SELECT TRIM(BOTH 'XY' FROM 'XYXYABCDXYXY') AS T5;
+  -- SELECT emp_id , 
+  -- CONCAT(first_name, ' ', last_name) 
+  -- FROM empolyee;
+
+  -- SELECT emp_id , 
+  -- SUBSTRING(first_name , 1 , 3) 
+  -- FROM empolyee;
+
+  -- SELECT emp_id ,
+  -- LOWER(first_name) as lowerCase , UPPER(first_name) as UpperCase
+  -- FROM empolyee;
+
+  -- SELECT emp_id , 
+  -- LENGTH(first_name) as total_length , CHAR_LENGTH(first_name) as total_length 
+  -- FROM empolyee;
+
+  -- SELECT EXTRACT(YEAR_MONTH FROM valid_from) AS YYYYMM , SUM(amount) FROM salary 
+  -- GROUP BY YYYYMM;
+
+  -- GROUP BY EXAMPLE
+  SELECT emp_id , 
+  SUM(amount) as AMOUNT
+  FROM salary 
+  GROUP BY emp_id;
+
+  SELECT emp_id ,
+  SUM(amount) AS AMOUNT
+  FROM salary 
+  WHERE amount>75000
+  GROUP BY emp_id;
+
+  SELECT emp_id ,
+  sum(amount) as total_salary
+  FROM salary
+  GROUP BY emp_id
+  HAVING total_salary > 82000;
