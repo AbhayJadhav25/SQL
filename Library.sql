@@ -143,7 +143,46 @@ UPDATE borrow
 SET FINE = 450 
 WHERE DATEDIFF(return_date , borrow_date) > 15;
 END $$
+DELIMITER ;
+
+
+
+-- STORE FUNCTION
+
+DROP FUNCTION IF EXISTS calculate_fine;
+DELIMITER $$
+
+CREATE FUNCTION calculate_fine(delay_days INT)
+RETURNS DECIMAL(8,2)
+DETERMINISTIC
+BEGIN
+  DECLARE delay_fine DECIMAL(8,2);
+  SET delay_fine = delay_days * 5;
+  RETURN delay_fine;
+END $$
+
 DELIMITER ;*/
 
+DROP FUNCTION IF EXISTS display_copies;
+DELIMITER $$
+CREATE FUNCTION display_copies(id int)
+RETURNS int
+DETERMINISTIC
+BEGIN
+DECLARE total_copies int ;
+DECLARE borrowd_cnt int;
+DECLARE avilable int;
 
+SELECT avilable_copies 
+INTO total_copies
+FROM books
+WHERE book_id = id;
 
+SELECT COUNT(*) INTO borrowd_cnt
+FROM borrow
+WHERE book_id = id;
+
+SET avilable = total_copies - borrowd_cnt;
+RETURN avilable;
+END $$
+DELIMITER ;
