@@ -52,6 +52,18 @@ insert into borrow Values
 (23 , 13 , 2 , '2024-02-18','2024-04-19',150),
 (24 , 14 , 4 ,'2022-08-23','2022-09-21',1000),
 (25 , 14 , 5 , '2022-06-16','2022-08-13',127);
-select * from books;
-select * from members;
-select * from borrow;
+
+
+-- Queries
+SELECT * 
+FROM books 
+WHERE author = 'R.K. Narayan'
+ORDER BY price DESC;
+
+SELECT *
+FROM members 
+WHERE  member_id IN(
+  SELECT member_id
+  FROM borrow 
+  WHERE borrow_date > '2024-01-01' 
+);
