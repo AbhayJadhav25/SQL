@@ -188,7 +188,7 @@ WHERE book_id = id;
 SET avilable = total_copies - borrowd_cnt;
 RETURN avilable;
 END $$
-DELIMITER ;*/
+DELIMITER ;
 
 DROP TRIGGER IF EXISTS  after_borrow;
 DELIMITER $$
@@ -221,3 +221,61 @@ DELIMITER ;
 UPDATE borrow
 SET return_date = '2025-11-15'
 WHERE borrow_id = 26;
+
+DROP Procedure IF EXISTS display_name;
+DELIMITER $$
+CREATE PROCEDURE display_name()
+BEGIN
+declare pname varchar(30) ; 
+declare bookborrow int;
+declare done int default 0;
+
+declare  curl CURSOR for 
+SELECT m.name , COUNT(b.book_id)
+FROM members AS m 
+JOIN borrow as b 
+ON  m.member_id = b.member_id
+GROUP BY m.name
+HAVING COUNT(b.book_id) >= 2;
+
+DECLARE CONTINUE HANDLER FOR NOT FOUND SET DONE = 1;
+
+OPEN curl;
+read_loop : LOOP
+FETCH curl INTO pname , bookborrow;
+if done THEN
+  leave read_loop;
+end if;
+
+SELECT CONCAT('MEMBER NAME : ',pname , '| Books : ' , bookborrow) as ActiveMember;
+END LOOP;
+close curl;
+END $$
+DELIMITER ;*/
+
+Drop procedure if exists cal_fine;
+DELIMITER $$
+CREATE PROCEDURE cal_fine()
+BEGIN
+DECLARE TOTAL DECIMAL(8,2) DEFAULT 0;
+DECLARE FINEAMT DECIMAL(8,2);
+DECLARE DONE INT DEFAULT 0;
+DECLARE curl CURSOR FOR 
+SELECT fine 
+FROM borrow;
+
+declare continue handler for not found set DONE =1;
+OPEN curl;
+read_loop : LOOP
+FETCH curl INTO FINEAMT;
+IF DONE THEN 
+  LEAVE read_loop;
+END IF;
+
+set TOTAL = TOTAL + FINEAMT;
+
+SELECT TOTAL AS "TOTAL FINE";
+END LOOP;
+close curl;
+END $$
+DELIMITER ;
