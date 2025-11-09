@@ -111,8 +111,7 @@ IN(
     FROM members
     WHERE member_addr = LOWER('PUNE')
   )
-);*/
-
+);
 -- JOINS
 SELECT m.name ,bK.title
 FROM members AS m
@@ -124,3 +123,27 @@ ON b.book_id = bk.book_id;
 SELECT *
 FROM books
 WHERE book_id NOT IN(select book_id FROM  borrow);
+
+-- Stored Procedure
+DROP PROCEDURE IF EXISTS displayMembers;
+DELIMITER $$
+CREATE PROCEDURE displayMembers(IN id INT)
+BEGIN
+SELECT COUNT(member_id) AS TOTAL_BOOKS
+FROM borrow 
+WHERE member_id = id;
+END $$
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS update_fine;
+DELIMITER $$
+CREATE PROCEDURE update_fine()
+BEGIN
+UPDATE borrow
+SET FINE = 450 
+WHERE DATEDIFF(return_date , borrow_date) > 15;
+END $$
+DELIMITER ;*/
+
+
+
