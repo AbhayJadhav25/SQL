@@ -22,7 +22,6 @@ create table members(
 
 create table borrow(
   borrow_id int primary key not null ,
-  bname varchar(30)  ,
   member_id int ,
   foreign key (member_id) references members(member_id),
   book_id int ,
@@ -31,6 +30,28 @@ create table borrow(
   return_date date ,
   fine decimal(8,2)
 );
-  desc books;
-  DESC members;
-  desc borrow;
+  
+insert into books Values
+(1,'Vede man' , 'Mr.om' , 'Love' , 1480 ,20),
+(2,'RA&W' , 'R.K. Narayan' , 'Real Story' , 1800 , 25),
+(3,'Marathi Poem','R.K. Narayan','Poems',1200 , 30) ,
+(4,'Hindi Stories' , 'A Shastri' , 'Funny' , 1500 , 4),
+(5,'English Horror' , 'R jadhav','Horror',2500,12);
+
+
+insert into members Values
+(11 , 'Aditya' , 'Pune' , '91827179','2023-10-11'),
+(12 , 'Mayur' , 'Ahilyanagr' , '098768','2025-08-12'),
+(13,"Harshal" , 'Ravet','098767','2024-05-16'),
+(14,"kartik","Bhingar",'5654345','2022-10-26'),
+(15,"Abhishek",'Wagholi','1627291','2024-10-12');
+
+insert into borrow Values
+(21, 11 , 1 , '2023-08-12' , '2023-09-12',120),
+(22 , 12 , 2 ,'2025-04-21','2025-06-22',240),
+(23 , 13 , 2 , '2024-02-18','2024-04-19',150),
+(24 , 14 , 4 ,'2022-08-23','2022-09-21',1000),
+(25 , 14 , 5 , '2022-06-16','2022-08-13',127);
+select * from books;
+select * from members;
+select * from borrow;
