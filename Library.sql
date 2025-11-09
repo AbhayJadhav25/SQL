@@ -66,10 +66,10 @@ WHERE  member_id IN(
   SELECT member_id
   FROM borrow 
   WHERE borrow_date > '2024-01-01' 
-);*/
+);
 
--- JOINS
-/*SELECT m.name  
+-- SUBQUERIES
+SELECT m.name  
 FROM members as m
 JOIN borrow as b
 ON m.member_id = b.member_id
@@ -89,7 +89,7 @@ IN(
   FROM books 
   WHERE price = (SELECT MAX(price) from books)
   )
-);*/
+);
 
 SELECT B.title 
 FROM books AS b 
@@ -111,4 +111,16 @@ IN(
     FROM members
     WHERE member_addr = LOWER('PUNE')
   )
-);
+);*/
+
+-- JOINS
+SELECT m.name ,bK.title
+FROM members AS m
+JOIN borrow as b 
+on m.member_id = b.member_id
+JOIN books as bk 
+ON b.book_id = bk.book_id;
+
+SELECT *
+FROM books
+WHERE book_id NOT IN(select book_id FROM  borrow);
