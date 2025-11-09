@@ -55,7 +55,7 @@ insert into borrow Values
 
 
 -- Queries
-SELECT * 
+/*SELECT * 
 FROM books 
 WHERE author = 'R.K. Narayan'
 ORDER BY price DESC;
@@ -66,4 +66,49 @@ WHERE  member_id IN(
   SELECT member_id
   FROM borrow 
   WHERE borrow_date > '2024-01-01' 
+);*/
+
+-- JOINS
+/*SELECT m.name  
+FROM members as m
+JOIN borrow as b
+ON m.member_id = b.member_id
+JOIN books AS bk 
+ON bk.book_id = b.book_id
+WHERE bk.price = (SELECT MAX(price) FROM books); 
+
+SELECT name 
+from members
+WHERE member_id 
+IN(
+  SELECT member_id 
+  FROM borrow 
+  WHERE book_id
+  IN(
+  SELECT book_id 
+  FROM books 
+  WHERE price = (SELECT MAX(price) from books)
+  )
+);*/
+
+SELECT B.title 
+FROM books AS b 
+JOIN borrow AS bo 
+ON B.book_id = BO.book_id 
+JOIN members AS m
+ON bo.member_id = M.member_id 
+WHERE m.member_addr = lower('Pune');
+
+SELECT title 
+FROM books
+WHERE book_id 
+IN(
+  SELECT book_id 
+  FROM borrow
+  WHERE member_id 
+  IN(
+    SELECT member_id 
+    FROM members
+    WHERE member_addr = LOWER('PUNE')
+  )
 );
